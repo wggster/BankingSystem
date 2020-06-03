@@ -1,3 +1,3 @@
 # BankingSystem
 
-This is a very cool example project.
+This is an exceptionally cool example project.
