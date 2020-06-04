@@ -8,7 +8,7 @@ class ATM {
     ATM(Bank bank) { this.bank = bank; }
 
     private Result request(String acctNumber, String PIN, double amount) {
-        return bank.atmWithdrawl(acctNumber, PIN, amount);
+        return bank.atmWithdrawal(acctNumber, PIN, amount);
     }
 
     private void dispense(double amount) {
@@ -19,7 +19,7 @@ class ATM {
         System.out.println("Your request for $" + String.format("%.2f",amount) + " has been denied because of " + result);
     }
 
-    public void withdrawlRequest(String acctNumber, String PIN, double amount) {
+    public void withdrawalRequest(String acctNumber, String PIN, double amount) {
         Result result = request(acctNumber, PIN, amount);
         if (result == APPROVED)
             dispense(amount);

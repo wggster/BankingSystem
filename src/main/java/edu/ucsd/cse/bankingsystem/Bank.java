@@ -34,9 +34,9 @@ class Bank {
         return retrieveAccount(acctNumber).getBalance();
     }
 
-    Result atmWithdrawl(String acctNumber, String PIN, double amount) {
+    Result atmWithdrawal(String acctNumber, String PIN, double amount) {
         if (!accountExists(acctNumber))
-            return bankingSystem.atmWithdrawl(acctNumber, PIN, amount);
+            return bankingSystem.atmWithdrawal(acctNumber, PIN, amount);
         else if (!validateATMRequest(acctNumber, PIN))
             return WRONG_PIN;
         else if (retrieveAccount(acctNumber).getBalance() < amount)

@@ -32,10 +32,10 @@ class BankingSystem {
 
     // @ensures !accountExists(acctNumber) @implies @return == BAD_ACCOUNT
     // @ensures accountExists(acctNumber) @implies @return == retrieveBank().atmWithdrawl(acctNumber)
-    Result atmWithdrawl(String acctNumber, String PIN, double amount) {
+    Result atmWithdrawal(String acctNumber, String PIN, double amount) {
         if (!accountExists(acctNumber))
             return BAD_ACCOUNT;
         else
-            return retrieveBank(acctNumber).atmWithdrawl(acctNumber, PIN, amount);
+            return retrieveBank(acctNumber).atmWithdrawal(acctNumber, PIN, amount);
     }
 }

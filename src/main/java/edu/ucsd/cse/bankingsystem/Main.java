@@ -25,15 +25,15 @@ class Main {
         ATM uATM = new ATM(usaa);
 
         System.out.println("\n// Test the local bank cases:");
-        uATM.withdrawlRequest(u1AcctNum, u1PIN, 10.00);    // APPROVED
-        uATM.withdrawlRequest(u1AcctNum, u1PIN, 100.00);   // INSUFFICIENT_FUNDS
-        uATM.withdrawlRequest(u1AcctNum, wrongPIN, 10.00); // WRONG_PIN
+        uATM.withdrawalRequest(u1AcctNum, u1PIN, 10.00);    // APPROVED
+        uATM.withdrawalRequest(u1AcctNum, u1PIN, 100.00);   // INSUFFICIENT_FUNDS
+        uATM.withdrawalRequest(u1AcctNum, wrongPIN, 10.00); // WRONG_PIN
 
         System.out.println("\n// Test the remote bank (BankingSystem) cases:");
-        uATM.withdrawlRequest(w1AcctNum, w1PIN, 10.00);    // APPROVED
-        uATM.withdrawlRequest(w1AcctNum, w1PIN, 200.00);   // INSUFFICIENT_FUNDS
-        uATM.withdrawlRequest(w1AcctNum, wrongPIN, 10.00); // WRONG_PIN
-        uATM.withdrawlRequest(badAcctNum, w1PIN, 10.00); // BAD_ACCOUNT
+        uATM.withdrawalRequest(w1AcctNum, w1PIN, 10.00);    // APPROVED
+        uATM.withdrawalRequest(w1AcctNum, w1PIN, 200.00);   // INSUFFICIENT_FUNDS
+        uATM.withdrawalRequest(w1AcctNum, wrongPIN, 10.00); // WRONG_PIN
+        uATM.withdrawalRequest(badAcctNum, w1PIN, 10.00); // BAD_ACCOUNT
     }
 }
 
