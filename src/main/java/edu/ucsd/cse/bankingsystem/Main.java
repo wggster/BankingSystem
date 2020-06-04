@@ -16,8 +16,8 @@ class Main {
         Bank wfrg = new Bank(WELLSFARGO, bankingSystem);
         Bank usaa = new Bank(USAA, bankingSystem);
 
-        usaa.addAccount(u1AcctNum, u1PIN, 100.00);
-        wfrg.addAccount(w1AcctNum, w1PIN, 200.00);
+        usaa.addAccount(u1AcctNum, new Account(u1AcctNum, u1PIN, 100.00));
+        wfrg.addAccount(w1AcctNum, new Account(w1AcctNum, w1PIN, 200.00));
 
         bankingSystem.addBank(WELLSFARGO, wfrg);
         bankingSystem.addBank(USAA, usaa);

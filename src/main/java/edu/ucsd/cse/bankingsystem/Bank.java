@@ -17,8 +17,8 @@ class Bank {
 
     // @requires !accountExists(acctNumber);
     // @ensures  accountExists(acctNumber);
-    public void addAccount(String acctNumber, String PIN, double initialBalance) {
-        accounts.put(acctNumber, new Account(acctNumber, PIN, initialBalance));
+    public void addAccount(String acctNumber, Account account) {
+        accounts.put(acctNumber, account);
     }
 
     // @requires accountExists(acctNumber);
