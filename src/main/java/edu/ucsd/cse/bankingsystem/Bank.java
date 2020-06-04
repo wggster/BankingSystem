@@ -9,7 +9,7 @@ import static edu.ucsd.cse.bankingsystem.Result.*;
 class Bank {
     private BankingSystem bankingSystem;
     private String bankID;
-    private Map<String, edu.ucsd.cse.bankingsystem.Account> accounts = new HashMap<String, edu.ucsd.cse.bankingsystem.Account>();
+    private Map<String, edu.ucsd.cse.bankingsystem.Account> accounts = new HashMap<String, Account>();
 
     Bank(String bankID, BankingSystem bankingSystem) { this.bankingSystem = bankingSystem; }
 
@@ -30,7 +30,7 @@ class Bank {
     }
 
     // @requires accountExists(acctNumber);
-    public double getAccountBalance(String acctNumber) {
+    private double getAccountBalance(String acctNumber) {
         return retrieveAccount(acctNumber).getBalance();
     }
 
@@ -39,7 +39,7 @@ class Bank {
             return bankingSystem.atmWithdrawal(acctNumber, PIN, amount);
         else if (!validateATMRequest(acctNumber, PIN))
             return WRONG_PIN;
-        else if (retrieveAccount(acctNumber).getBalance() < amount)
+        else if (getAccountBalance(acctNumber) < amount)
             return INSUFFICIENT_FUNDS;
         else {
             retrieveAccount(acctNumber).withdraw(amount);
