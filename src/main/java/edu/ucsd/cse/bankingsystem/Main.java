@@ -24,7 +24,6 @@ class Main {
 
         ATM uATM = new ATM(usaa);
 
-
         System.out.println("\n// Test the local bank cases:");
         uATM.withdrawlRequest(u1AcctNum, u1PIN, 10.00);    // APPROVED
         uATM.withdrawlRequest(u1AcctNum, u1PIN, 100.00);   // INSUFFICIENT_FUNDS
