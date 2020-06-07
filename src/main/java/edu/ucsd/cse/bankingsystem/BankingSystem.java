@@ -2,15 +2,15 @@ package edu.ucsd.cse.bankingsystem;
 
 import java.util.HashMap;
 import java.util.Map;
-import static edu.ucsd.cse.bankingsystem.Result.BAD_ACCOUNT;
+import static edu.ucsd.cse.bankingsystem.Result.*;
 
-class BankingSystem {
-    private Map<String, Bank> banks = new HashMap<String, Bank>();
+class BankingSystem implements ATMObserver<IBank> {
+    private Map<String,IBank> banks = new HashMap<String,IBank>();
 
     public boolean bankExists(String bankID) { return banks.containsKey(bankID); }
 
     public boolean accountExists(String acctNumber) {
-        for (Bank bank : banks.values()) {  // TODO - inefficient
+        for (IBank bank : banks.values()) {  // TODO - inefficient
             if (bank.accountExists(acctNumber)) return true;
         }
         return false;
@@ -18,24 +18,33 @@ class BankingSystem {
 
     // @requires !bankExists(bankID);
     // @ensures  bankExists(bankID);
-    public void addBank(String bankID, Bank bank) {
+    public void addBank(String bankID, IBank bank) {
         banks.put(bankID, bank);
+        bank.register(this);
     }
 
     // @requires accountExists(acctNumber);
-    private Bank retrieveBank(String acctNumber) {
-        for (Bank bank : banks.values()) {  // TODO - inefficient
+    private IBank retrieveBank(String acctNumber) {
+        for (IBank bank : banks.values()) {  // TODO - inefficient
             if (bank.accountExists(acctNumber)) return bank;
         }
         return null; // not reachable if contracts are observed, but required by compiler
     }
 
-    // @ensures !accountExists(acctNumber) @implies @return == BAD_ACCOUNT
-    // @ensures accountExists(acctNumber) @implies @return == retrieveBank().atmWithdrawl(acctNumber)
-    Result pinWithdrawal(String acctNumber, String PIN, double amount) {
-        if (!accountExists(acctNumber))
-            return BAD_ACCOUNT;
-        else
-            return retrieveBank(acctNumber).pinWithdrawal(acctNumber, PIN, amount);
+    /*
+     * We could have an ATM here, but calling it directly would violate the Law of Demeter.
+     * The one thing we _could_ do with a "non-friend" reference is pass it back down.
+     */
+    public void onWithdrawalRequest(IBank bank, String acctNumber, String PIN, double amount) {
+        if (!accountExists(acctNumber)) {
+            bank.denied(acctNumber, amount, BAD_ACCOUNT);
+        }
+        else {
+            Result result = retrieveBank(acctNumber).pinWithdrawalRequest(acctNumber, PIN, amount);
+            if (result == APPROVED)
+                bank.transfer(amount);
+            else
+                bank.denied(acctNumber, amount, result);
+        }
     }
 }

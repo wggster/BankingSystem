@@ -5,6 +5,8 @@ class Account {
     private String acctNumber;  // unused at this time
     private double balance;
     private String PIN;
+
+    // @require acctNumber != null && PIN != null && balance >= 0
     Account(String acctNumber, String PIN, double balance) {
         this.acctNumber = acctNumber;
         this.PIN = PIN;
@@ -17,7 +19,7 @@ class Account {
     // @ensures  getBalance() == getBalance()@pre - amount
     public void withdraw(double amount) { balance -= amount; }
 
-    // @requires PIN != null
+    // @require PIN != null
     public boolean validatePIN(String PIN) { return PIN.equals(this.PIN); }
 }
 
