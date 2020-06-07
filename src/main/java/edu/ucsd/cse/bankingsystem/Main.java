@@ -25,14 +25,21 @@ class Main {
         ATM uATM = new ATM(usaa);
 
         System.out.println("\n// Test the local bank cases:");
+        System.out.println("Expecting APPROVED: ");
         uATM.withdrawalRequest(u1AcctNum, u1PIN, 10.00);    // APPROVED
+        System.out.println("Expecting INSUFFICIENT_FUNDS: ");
         uATM.withdrawalRequest(u1AcctNum, u1PIN, 100.00);   // INSUFFICIENT_FUNDS
+        System.out.println("Expecting WRONG_PIN: ");
         uATM.withdrawalRequest(u1AcctNum, wrongPIN, 10.00); // WRONG_PIN
 
         System.out.println("\n// Test the remote bank (BankingSystem) cases:");
+        System.out.println("Expecting APPROVED: ");
         uATM.withdrawalRequest(w1AcctNum, w1PIN, 10.00);    // APPROVED
+        System.out.println("Expecting INSUFFICIENT_FUNDS: ");
         uATM.withdrawalRequest(w1AcctNum, w1PIN, 200.00);   // INSUFFICIENT_FUNDS
+        System.out.println("Expecting WRONG_PIN: ");
         uATM.withdrawalRequest(w1AcctNum, wrongPIN, 10.00); // WRONG_PIN
+        System.out.println("Expecting BAD_ACCOUNT: ");
         uATM.withdrawalRequest(badAcctNum, w1PIN, 10.00); // BAD_ACCOUNT
     }
 }

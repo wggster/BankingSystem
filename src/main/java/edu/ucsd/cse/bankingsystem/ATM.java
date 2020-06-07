@@ -8,7 +8,7 @@ class ATM {
     ATM(Bank bank) { this.bank = bank; }
 
     private Result request(String acctNumber, String PIN, double amount) {
-        return bank.atmWithdrawal(acctNumber, PIN, amount);
+        return bank.pinWithdrawal(acctNumber, PIN, amount);
     }
 
     private void dispense(double amount) {
