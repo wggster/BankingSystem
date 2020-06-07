@@ -3,12 +3,15 @@ package edu.ucsd.cse.bankingsystem;
 import static edu.ucsd.cse.bankingsystem.Result.APPROVED;
 
 class ATM {
-    private Bank bank;
+    private Grantor grantor;
 
-    ATM(Bank bank) { this.bank = bank; }
+    /*
+     * Notice that ATM does not know about Banks, per se.
+     */
+    ATM(Grantor grantor) { this.grantor = grantor; }
 
     private Result request(String acctNumber, String PIN, double amount) {
-        return bank.pinWithdrawal(acctNumber, PIN, amount);
+        return grantor.pinWithdrawal(acctNumber, PIN, amount);
     }
 
     private void dispense(double amount) {

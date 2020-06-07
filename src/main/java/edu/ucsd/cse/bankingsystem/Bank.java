@@ -6,13 +6,16 @@ import static edu.ucsd.cse.bankingsystem.Result.*;
 
 
 // @invariant accountExists(String acctNumber) @implies getAccountBalance(acctNumber) >= 0
-class Bank {
-    private BankingSystem bankingSystem;
+class Bank implements Grantor {
+    private Grantor grantor;
     private double fundsOnHand = 0;
     private String bankID;
     private Map<String, Account> accounts = new HashMap<String, Account>();
 
-    Bank(String bankID, BankingSystem bankingSystem) { this.bankingSystem = bankingSystem; }
+    /*
+     * Notice that Bank does not know about BankingSystems, per se.
+     */
+    Bank(String bankID, Grantor grantor) { this.grantor = grantor; }
 
     public boolean accountExists(String acctNumber) { return accounts.containsKey(acctNumber); }
 
@@ -38,9 +41,9 @@ class Bank {
     // missing contract: funds on hand change by amount
     public void transfer(double amount) { fundsOnHand += amount; }
 
-    Result pinWithdrawal(String acctNumber, String PIN, double amount) {
+    public Result pinWithdrawal(String acctNumber, String PIN, double amount) {
         if (!accountExists(acctNumber)) {
-            Result result = bankingSystem.pinWithdrawal(acctNumber, PIN, amount);
+            Result result = grantor.pinWithdrawal(acctNumber, PIN, amount);
             if (result == APPROVED)  // Does transfer bookkeeping, not minding own business!
                 transfer(amount);    // Shouldn't be trusting bank to do this honestly.
             return result;
