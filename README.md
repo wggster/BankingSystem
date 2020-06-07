@@ -1,4 +1,4 @@
-# BankingSystem
+# Banking System 
 
 This is a small pedagogical project used to demonstrate several object-oriented design concepts.  In perusing this example, don't get too caught up in the fact that the example supposedly involves banking, in particular support for making a withdrawal from an ATM.  In no way is this example meant to show how banking software is, or should be, designed.  So many issues are glossed over, such as persistence and security, that could fundamentally affect what constitutes a good design.  This is really an example about Dependency Inversion, Design Patterns, Software Architecture, Design by Contract, and the like.
 
