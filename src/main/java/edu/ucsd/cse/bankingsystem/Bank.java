@@ -32,7 +32,9 @@ class Bank implements IBank {
 
     // @requires !accountExists(acctNumber);
     // @ensures  accountExists(acctNumber);
-    public void addAccount(String acctNumber, Account account) { accounts.put(acctNumber, account); }
+    public void addAccount(String acctNumber, Account account) {
+        accounts.put(acctNumber, account);
+    }
 
     // @requires accountExists(acctNumber);
     private Account retrieveAccount(String acctNumber) { return accounts.get(acctNumber); }
@@ -43,7 +45,7 @@ class Bank implements IBank {
     }
 
     // @requires accountExists(acctNumber);
-    private boolean validateATMRequest(String acctNumber, String PIN) {
+    private boolean validatePinRequest(String acctNumber, String PIN) {
         return retrieveAccount(acctNumber).validatePIN(PIN); // not a violation of LoD
     }
 
@@ -59,7 +61,7 @@ class Bank implements IBank {
     }
 
     public Result pinWithdrawalRequest(String acctNumber, String PIN, double amount) {
-        if (!validateATMRequest(acctNumber, PIN)) {
+        if (!validatePinRequest(acctNumber, PIN)) {
             return WRONG_PIN;
         }
         else if (getAccountBalance(acctNumber) < amount) {
