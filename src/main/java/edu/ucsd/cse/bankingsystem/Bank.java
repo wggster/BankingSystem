@@ -54,11 +54,8 @@ class Bank implements IBank {
         return retrieveAccount(acctNumber).getBalance();
     }
 
-    // @requires accountExists(acctNumber) && getAccountBalance() >= amount;
-    // @ensures getAccountBalance(acctNumber) == getAccountBalance(acctNumber)@pre - amount;
-    public void withdraw(String acctNumber, double amount) {
-         retrieveAccount(acctNumber).withdraw(amount);
-    }
+    // missing contract: funds on hand change by amount
+    public void transfer(double amount) { fundsOnHand += amount; }
 
     public Result pinWithdrawalRequest(String acctNumber, String PIN, double amount) {
         if (!validatePINRequest(acctNumber, PIN)) {
@@ -73,8 +70,11 @@ class Bank implements IBank {
         }
     }
 
-    // missing contract: funds on hand change by amount
-    public void transfer(double amount) { fundsOnHand += amount; }
+    // @requires accountExists(acctNumber) && getAccountBalance() >= amount;
+    // @ensures getAccountBalance(acctNumber) == getAccountBalance(acctNumber)@pre - amount;
+    public void withdraw(String acctNumber, double amount) {
+        retrieveAccount(acctNumber).withdraw(amount);
+    }
 
     /*
      * This would create a log entry.
