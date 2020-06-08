@@ -45,7 +45,7 @@ class Bank implements IBank {
     }
 
     // @requires accountExists(acctNumber);
-    private boolean validatePinRequest(String acctNumber, String PIN) {
+    private boolean validatePINRequest(String acctNumber, String PIN) {
         return retrieveAccount(acctNumber).validatePIN(PIN); // not a violation of LoD
     }
 
@@ -61,7 +61,7 @@ class Bank implements IBank {
     }
 
     public Result pinWithdrawalRequest(String acctNumber, String PIN, double amount) {
-        if (!validatePinRequest(acctNumber, PIN)) {
+        if (!validatePINRequest(acctNumber, PIN)) {
             return WRONG_PIN;
         }
         else if (getAccountBalance(acctNumber) < amount) {
